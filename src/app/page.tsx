@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import Link from "next/link";
 import {
   Stethoscope,
   Code2,
@@ -34,6 +35,8 @@ import {
   Check
 } from "lucide-react";
 import { ImageStreamHero } from "@/components/ui/image-stream-hero";
+import { CurriculumGeometricBg } from "@/components/ui/curriculum-geometric-bg";
+import { SyllabusDossierModal } from "@/components/ui/syllabus-dossier-modal";
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -46,43 +49,6 @@ export default function Home() {
   const [inspectingCourseId, setInspectingCourseId] = useState<string | null>(null);
   const [expandedCourseModules, setExpandedCourseModules] = useState<{ [key: string]: boolean }>({});
   const [downloadSuccess, setDownloadSuccess] = useState<string | null>(null);
-  const [openAccordionIds, setOpenAccordionIds] = useState<{ [key: string]: boolean }>({
-    overview: true,
-    module_0: true,
-    module_1: true,
-    module_2: false,
-    module_3: false,
-    faculty: true
-  });
-
-  const toggleAccordion = (id: string) => {
-    setOpenAccordionIds((prev) => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
-  };
-
-  const expandAllAccordions = () => {
-    setOpenAccordionIds({
-      overview: true,
-      module_0: true,
-      module_1: true,
-      module_2: true,
-      module_3: true,
-      faculty: true
-    });
-  };
-
-  const collapseAllAccordions = () => {
-    setOpenAccordionIds({
-      overview: false,
-      module_0: false,
-      module_1: false,
-      module_2: false,
-      module_3: false,
-      faculty: false
-    });
-  };
 
   const [formData, setFormData] = useState({
     name: "Marcus Vance",
@@ -157,7 +123,7 @@ export default function Home() {
     }
   ];
 
-  // The 5 Core University Masterclasses with explicit academic syllabus architecture
+  // The 5 Core E-Learning Masterclasses with comprehensive modular curriculum
   const disciplines = [
     {
       id: "medicine",
@@ -165,26 +131,17 @@ export default function Home() {
       title: "Clinical Medicine & Human Pathology",
       category: "Pre-Med & Pre-Clinical",
       levelCategory: "Pre-Clinical",
-      levelBadge: "Upper-Division Pre-Med",
-      units: "4.0 Units",
-      length: "52 Weeks Comprehensive",
-      hours: "140 Lecture Hours • 48 Dissection Labs",
-      rating: "4.97",
-      enrolledCount: "8,420 Undergrads",
+      levelBadge: "Pre-Med Specialist Track",
+      length: "52 Weeks Self-Paced",
+      hours: "140 Video Lessons • 48 Virtual Labs",
       prerequisites: "Organic Chemistry, Molecular Biology, General Physiology",
       examAlignment: "USMLE Step 1 • MCAT Biological Foundations",
-      accreditation: "Harvard Med & Johns Hopkins Syllabi Aligned",
+      accreditation: "Pre-Med Masterclass Certificate",
       description:
-        "Comprehensive clinical coursework spanning gross human anatomy, cellular pathology, pharmacokinetics, and diagnostic decision frameworks with 3D virtual dissections and clinical case recitations.",
+        "Comprehensive clinical coursework spanning gross human anatomy, cellular pathology, pharmacokinetics, and diagnostic decision frameworks with 3D virtual dissections and clinical case simulations.",
       topicImage:
         "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?q=80&w=1000&auto=format&fit=crop",
-      faculty: {
-        name: "Dr. Sarah Sterling, MD",
-        title: "Clinical Professor of Cardiovascular Medicine",
-        institution: "Johns Hopkins University School of Medicine",
-        officeHours: "Tuesdays & Thursdays 16:00 EST",
-        avatar: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=200&auto=format&fit=crop"
-      },
+      track: "Pre-Med Specialist Track",
       topics: [
         "Cardiopulmonary Anatomy & Valvular Pathology",
         "Neuroanatomy & Brainstem Cranial Pathways",
@@ -251,28 +208,19 @@ export default function Home() {
       id: "cs",
       code: "CS-240",
       title: "Distributed Systems & Kernel Architecture",
-      category: "Systems & Theory",
+      category: "Systems & Computer Science",
       levelCategory: "Core",
-      levelBadge: "Upper-Division CS Core",
-      units: "4.0 Units",
-      length: "48 Weeks Comprehensive",
-      hours: "120 Lecture Hours • 36 Kernel Labs",
-      rating: "4.95",
-      enrolledCount: "11,800 Undergrads",
+      levelBadge: "Systems Engineering Track",
+      length: "48 Weeks Self-Paced",
+      hours: "120 Video Lessons • 36 Kernel Projects",
       prerequisites: "Computer Architecture, Data Structures, C/C++ or Rust",
-      examAlignment: "ACM/IEEE CS2023 Guidelines • ABET Computing Standard",
-      accreditation: "MIT EECS & UC Berkeley CS162 Aligned",
+      examAlignment: "ACM/IEEE CS Guidelines • Systems Engineering Core",
+      accreditation: "Systems Architecture Certificate",
       description:
         "Rigorous instruction covering asymptotic analysis, kernel architecture, concurrent programming, and distributed consensus protocols with bootable multitasking operating system kernel projects.",
       topicImage:
         "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop",
-      faculty: {
-        name: "Prof. Kenneth Lin, PhD",
-        title: "Principal Systems Investigator",
-        institution: "MIT EECS / CSAIL",
-        officeHours: "Mondays & Wednesdays 14:00 EST",
-        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop"
-      },
+      track: "Systems Engineering Track",
       topics: [
         "Virtual Memory Paging & Multi-Level Page Tables",
         "Lock-Free Concurrency & Hazard Pointers",
@@ -339,28 +287,19 @@ export default function Home() {
       id: "biology",
       code: "BIO-310",
       title: "Molecular Biology, CRISPR & Gene Regulation",
-      category: "Life Sciences",
+      category: "Biological Sciences",
       levelCategory: "Advanced",
-      levelBadge: "Advanced Life Sciences",
-      units: "4.0 Units",
-      length: "44 Weeks Comprehensive",
-      hours: "110 Lecture Hours • 40 Wet Lab Protocols",
-      rating: "4.98",
-      enrolledCount: "7,650 Undergrads",
+      levelBadge: "Biotechnology & Genetics Track",
+      length: "44 Weeks Self-Paced",
+      hours: "110 Video Lessons • 40 Simulated Labs",
       prerequisites: "Organic Chemistry, Cell Biology, General Genetics",
-      examAlignment: "MCAT Chemical & Physical Foundations • GRE Biology",
-      accreditation: "University of Oxford & Stanford Bio-Design Aligned",
+      examAlignment: "MCAT Chemical & Physical Foundations • Genetics Core",
+      accreditation: "Biotechnology Specialist Certificate",
       description:
         "Laboratory-backed explorations into recombinant DNA technology, enzymology, cellular signal transduction, and structural biochemistry with CRISPR guide RNA design simulations.",
       topicImage:
         "https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=1000&auto=format&fit=crop",
-      faculty: {
-        name: "Dr. Alistair Finch, DPhil",
-        title: "Reader in Molecular Genetics",
-        institution: "University of Oxford",
-        officeHours: "Wednesdays & Fridays 15:00 GMT",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop"
-      },
+      track: "Biotechnology Track",
       topics: [
         "CRISPR-Cas9 & Gene Editing Mechanisms",
         "Enzyme Kinetics & Michaelis-Menten Models",
@@ -429,26 +368,17 @@ export default function Home() {
       title: "Pure & Applied Analysis, Vector Fields & Topology",
       category: "Mathematical Sciences",
       levelCategory: "Honors",
-      levelBadge: "Honors Undergraduate Math",
-      units: "4.0 Units",
-      length: "40 Weeks Comprehensive",
-      hours: "100 Lecture Hours • 32 Proof Recitations",
-      rating: "4.96",
-      enrolledCount: "6,200 Undergrads",
+      levelBadge: "Pure Mathematics Track",
+      length: "40 Weeks Self-Paced",
+      hours: "100 Video Lessons • 32 Problem Sets",
       prerequisites: "Multivariable Calculus, Linear Algebra, Introduction to Proofs",
-      examAlignment: "Putnam Competition Preparation • GRE Mathematics Core",
-      accreditation: "Princeton University & Cambridge Tripos Aligned",
+      examAlignment: "Advanced Mathematical Problem-Solving Standard",
+      accreditation: "Pure Mathematics Certificate",
       description:
-        "Rigorous proof-driven curricula in multivariable calculus, abstract linear algebra, differential equations, and real analysis with formal mathematical chalkboard recitation workshops.",
+        "Rigorous proof-driven curricula in multivariable calculus, abstract linear algebra, differential equations, and real analysis with formal mathematical problem-solving workshops.",
       topicImage:
         "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1000&auto=format&fit=crop",
-      faculty: {
-        name: "Prof. Danielle Moreau, PhD",
-        title: "Professor of Pure Mathematics",
-        institution: "Princeton University",
-        officeHours: "Tuesdays & Thursdays 13:00 EST",
-        avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop"
-      },
+      track: "Pure Mathematics Track",
       topics: [
         "Differential Forms & Stokes' Theorem on Manifolds",
         "Singular Value Decomposition (SVD) & Jordan Forms",
@@ -517,26 +447,17 @@ export default function Home() {
       title: "Quantum Mechanics, Electrodynamics & Laser Optics",
       category: "Physical Sciences",
       levelCategory: "Core",
-      levelBadge: "Upper-Division Physics Core",
-      units: "4.0 Units",
-      length: "46 Weeks Comprehensive",
-      hours: "115 Lecture Hours • 38 Experimental Physics Labs",
-      rating: "4.99",
-      enrolledCount: "9,100 Undergrads",
+      levelBadge: "Theoretical Physics Track",
+      length: "46 Weeks Self-Paced",
+      hours: "115 Video Lessons • 38 Interactive Simulations",
       prerequisites: "Multivariable Calculus, Differential Equations, Classical Mechanics",
-      examAlignment: "Physics GRE • International Physics Olympiad Standard",
-      accreditation: "ETH Zürich & Caltech Physics Aligned",
+      examAlignment: "Physics Foundations & Quantum Theory Core",
+      accreditation: "Modern Physics Specialist Certificate",
       description:
         "Mathematical and experimental foundations in Schrödinger wave mechanics, relativistic electrodynamics, and statistical thermodynamics with single-photon interference lab protocols.",
       topicImage:
         "https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?q=80&w=1000&auto=format&fit=crop",
-      faculty: {
-        name: "Dr. Hendrik Bauer, PhD",
-        title: "Chair of Quantum Electronics",
-        institution: "ETH Zürich",
-        officeHours: "Mondays & Thursdays 11:00 CET",
-        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop"
-      },
+      track: "Theoretical Physics Track",
       topics: [
         "Schrödinger Equation & Harmonic Ladder Operators",
         "Relativistic Electrodynamics & Maxwell Tensors",
@@ -617,8 +538,7 @@ export default function Home() {
         d.code.toLowerCase().includes(q) ||
         d.description.toLowerCase().includes(q) ||
         d.category.toLowerCase().includes(q) ||
-        d.faculty.name.toLowerCase().includes(q) ||
-        d.faculty.institution.toLowerCase().includes(q) ||
+        d.track.toLowerCase().includes(q) ||
         d.topics.some((t) => t.toLowerCase().includes(q)) ||
         d.modules.some(
           (m) =>
@@ -845,6 +765,14 @@ export default function Home() {
               <a href="#admissions" onClick={(e) => scrollToSection(e, "admissions")} className="hover:text-emerald-600 transition-colors py-1 cursor-pointer">
                 Admissions
               </a>
+
+              <Link
+                href="/student"
+                className="px-3 py-1 rounded-full bg-teal-50 hover:bg-teal-100 text-teal-800 font-bold text-xs border border-teal-200 transition-colors flex items-center gap-1.5 cursor-pointer"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Student Space</span>
+              </Link>
             </nav>
 
             {/* Mobile Home Link */}
@@ -857,14 +785,13 @@ export default function Home() {
             </a>
 
             {/* Right Action Buttons */}
-            <div className="hidden md:flex items-center gap-5">
-              <a
-                href="#admissions"
-                onClick={(e) => scrollToSection(e, "admissions")}
-                className="text-xs font-semibold text-slate-700 hover:text-emerald-600 transition-colors cursor-pointer"
+            <div className="hidden md:flex items-center gap-4">
+              <Link
+                href="/student"
+                className="text-xs font-semibold text-teal-700 hover:text-teal-900 transition-colors cursor-pointer"
               >
-                Sign In
-              </a>
+                Student Portal
+              </Link>
               <a
                 href="#admissions"
                 onClick={(e) => scrollToSection(e, "admissions")}
@@ -922,6 +849,12 @@ export default function Home() {
               <a href="#admissions" onClick={(e) => scrollToSection(e, "admissions")} className="block hover:text-emerald-600 cursor-pointer">
                 Admissions
               </a>
+              <Link
+                href="/student"
+                className="block py-1.5 px-3 rounded-lg bg-teal-50 text-teal-800 font-bold text-xs border border-teal-200"
+              >
+                Student Space & Zoom Rooms ➔
+              </Link>
 
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
                 <a href="#admissions" onClick={(e) => scrollToSection(e, "admissions")} className="text-xs font-semibold text-slate-700 hover:text-emerald-600 cursor-pointer">
@@ -956,7 +889,7 @@ export default function Home() {
             </h1>
 
             <p className="mt-5 sm:mt-6 text-sm sm:text-base md:text-lg text-slate-100/95 font-normal max-w-3xl mx-auto leading-relaxed drop-shadow-[0_2px_14px_rgba(0,0,0,0.85)]">
-              From clinical anatomy and algorithmic systems to multivariable calculus and quantum physics. Master undergraduate science through proof-driven lectures, interactive models, and faculty recitations.
+              From clinical anatomy and algorithmic systems to multivariable calculus and quantum physics. Master foundational STEM disciplines through self-paced interactive modules, browser-based labs, and verifiable certificates.
             </p>
           </div>
         </div>
@@ -1009,44 +942,47 @@ export default function Home() {
             />
             <path
               d="M0,75 C340,175 460,20 880,115 C1180,185 1340,65 1440,85 L1440,140 L0,140 Z"
-              fill="#fafbfc"
+              fill="#ffffff"
             />
           </svg>
         </div>
       </ImageStreamHero>
 
-      {/* ================= UNIVERSITY STANDARDS BAR ================= */}
-      <section className="py-7 bg-[#fafbfc] border-b border-gray-200">
+      {/* ================= CURRICULUM HIGHLIGHTS BAR ================= */}
+      <section className="py-7 bg-white border-b border-slate-100 text-slate-500 relative z-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex flex-wrap items-center justify-between gap-6 text-xs uppercase tracking-wider font-semibold text-gray-500">
-            <span>Harvard Medical Curriculum</span>
-            <span>MIT EECS Courseware</span>
-            <span>Stanford Bio-Design Protocols</span>
-            <span>Oxford Natural Sciences</span>
-            <span>Princeton Advanced Mathematics</span>
+          <div className="flex flex-wrap items-center justify-between gap-6 text-xs uppercase tracking-wider font-semibold text-slate-500">
+            <span>Pre-Med & Clinical Anatomy</span>
+            <span>Distributed Systems & Kernels</span>
+            <span>Molecular Biology & CRISPR Labs</span>
+            <span>Pure Analysis & Topology</span>
+            <span>Quantum Mechanics & Optics</span>
           </div>
         </div>
       </section>
 
       {/* ================= THE 5 CORE DISCIPLINES & INTERACTIVE CURRICULUM EXPLORER ================= */}
-      <section id="disciplines" className="py-20 lg:py-28 relative scroll-mt-24 bg-[#fafbfc] font-sans">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <section id="disciplines" className="py-20 lg:py-28 relative scroll-mt-24 bg-white font-sans overflow-hidden">
+        {/* Geometric Shards Background (Top-Right Green & Bottom-Left Blue) */}
+        <CurriculumGeometricBg />
+
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
           {/* SECTION HEADER */}
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-gray-200 gap-6">
             <div>
               <span className="text-xs uppercase tracking-widest text-emerald-700 font-bold block mb-2">
-                Academic Syllabi & Masterclasses
+                Online STEM & Pre-Med Courses
               </span>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#071626]">
                 Curriculum & Course Directory
               </h2>
               <p className="mt-2 text-sm text-gray-600 max-w-2xl leading-relaxed">
-                Explore comprehensive undergraduate syllabi with explicit module breakdowns, laboratory protocols, required prerequisites, and official university exam alignments.
+                Explore comprehensive self-paced courses with explicit module breakdowns, laboratory simulation protocols, required prerequisites, and official exam alignments.
               </p>
             </div>
 
             {/* Quick Stats Pill */}
-            <div className="flex items-center gap-4 text-xs text-slate-600 bg-white border border-slate-200 px-4 py-2.5 rounded-xl shadow-sm shrink-0 font-medium">
+            <div className="flex items-center gap-4 text-xs text-slate-600 bg-white/90 backdrop-blur-sm border border-slate-200 px-4 py-2.5 rounded-xl shadow-sm shrink-0 font-medium">
               <div className="flex items-center gap-1.5">
                 <BookOpen className="w-4 h-4 text-emerald-600" />
                 <span className="font-bold text-slate-900">5 Masterclasses</span>
@@ -1054,13 +990,13 @@ export default function Home() {
               <span className="text-slate-300">•</span>
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>120+ Syllabi Mapped</span>
+                <span>100% Online & Self-Paced</span>
               </div>
             </div>
           </div>
 
           {/* SEARCH & COMMAND BAR */}
-          <div className="bg-white border border-slate-200 rounded-2xl shadow-sm p-4 sm:p-5 mb-8 space-y-4">
+          <div className="bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-sm p-4 sm:p-5 mb-8 space-y-4">
             <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
               {/* Search Input */}
               <div className="relative flex-1">
@@ -1069,7 +1005,7 @@ export default function Home() {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search by topic, syllabus code (MED-201, CS-240), professor, exam (USMLE, Putnam), or keyword..."
+                  placeholder="Search by topic, course code (MED-201, CS-240), unit theme, exam (USMLE, Putnam), or keyword..."
                   className="w-full pl-10 pr-9 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-emerald-500 focus:bg-white transition-all text-slate-900 placeholder:text-slate-400"
                 />
                 {searchQuery && (
@@ -1256,11 +1192,10 @@ export default function Home() {
                         </span>
                       </div>
 
-                      {/* Rating Badge */}
-                      <div className="absolute top-3 right-3 px-2 py-1 bg-black/60 backdrop-blur-md text-white text-xs font-bold rounded-md flex items-center gap-1 border border-white/10">
-                        <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                        <span>{item.rating}</span>
-                      </div>
+                      {/* Self-Paced E-Learning Badge */}
+                      <span className="absolute top-3 right-3 px-2.5 py-1 bg-white/95 backdrop-blur-md text-slate-900 text-xs font-bold rounded-md shadow-sm">
+                        Self-Paced Track
+                      </span>
 
                       {/* Bottom Image Overlay: Exam Alignment */}
                       <div className="absolute bottom-3 left-3 right-3">
@@ -1286,19 +1221,19 @@ export default function Home() {
                           </p>
                         </div>
 
-                        {/* Academic Specs Grid */}
-                        <div className="grid grid-cols-2 gap-2 p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs font-medium">
+                        {/* Course Specs Grid (E-Learning) */}
+                        <div className="grid grid-cols-2 gap-2 p-3 bg-slate-50/80 rounded-xl border border-slate-100 text-xs font-medium">
                           <div>
-                            <span className="text-slate-400 block text-[11px]">CREDITS</span>
-                            <span className="font-bold text-slate-800">{item.units}</span>
+                            <span className="text-slate-400 block text-[11px]">CURRICULUM</span>
+                            <span className="font-bold text-slate-800">4 Core Units</span>
                           </div>
                           <div>
                             <span className="text-slate-400 block text-[11px]">DURATION</span>
                             <span className="font-bold text-slate-800">{item.length.split(" ")[0]} Weeks</span>
                           </div>
-                          <div className="col-span-2 pt-1 border-t border-slate-200/60">
-                            <span className="text-slate-400 block text-[11px]">HOURS</span>
-                            <span className="font-semibold text-slate-700">{item.hours}</span>
+                          <div className="col-span-2 pt-1 border-t border-slate-200/60 flex items-center justify-between text-[11px]">
+                            <span className="text-slate-500 font-medium">{item.hours}</span>
+                            <span className="text-emerald-700 font-semibold">Certificate Included</span>
                           </div>
                         </div>
 
@@ -1355,23 +1290,17 @@ export default function Home() {
                         </div>
                       </div>
 
-                      {/* Faculty Info & Bottom Actions */}
+                      {/* Course Features & Actions */}
                       <div className="space-y-4 pt-3 border-t border-slate-100">
-                        {/* Faculty Profile */}
-                        <div className="flex items-center gap-3">
-                          <img
-                            src={item.faculty.avatar}
-                            alt={item.faculty.name}
-                            className="w-9 h-9 rounded-full object-cover border border-slate-200 shrink-0"
-                          />
-                          <div className="min-w-0">
-                            <span className="block text-xs font-bold text-slate-900 truncate">
-                              {item.faculty.name}
-                            </span>
-                            <span className="block text-[11px] text-slate-500 truncate">
-                              {item.faculty.institution}
-                            </span>
+                        {/* E-Learning Track Feature Pill */}
+                        <div className="flex items-center justify-between text-xs text-slate-700 bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
+                          <div className="flex items-center gap-2">
+                            <Award className="w-4 h-4 text-emerald-600 shrink-0" />
+                            <span className="font-semibold text-slate-800">Verified Certificate Track</span>
                           </div>
+                          <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
+                            Interactive Labs
+                          </span>
                         </div>
 
                         {/* Interactive Buttons */}
@@ -1412,7 +1341,7 @@ export default function Home() {
                   <thead>
                     <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 text-xs uppercase tracking-wider">
                       <th className="py-3.5 px-4 font-semibold">Course Code</th>
-                      <th className="py-3.5 px-4 font-semibold">Masterclass & Faculty</th>
+                      <th className="py-3.5 px-4 font-semibold">Course Title & Track</th>
                       <th className="py-3.5 px-4 font-semibold">Duration & Hours</th>
                       <th className="py-3.5 px-4 font-semibold">Prerequisites</th>
                       <th className="py-3.5 px-4 font-semibold">Standard Alignment</th>
@@ -1436,7 +1365,7 @@ export default function Home() {
                             {item.title}
                           </span>
                           <span className="text-xs text-slate-500 block mt-0.5">
-                            {item.faculty.name} • {item.faculty.institution}
+                            {item.category} • Complete Self-Paced Track
                           </span>
                         </td>
 
@@ -1485,398 +1414,16 @@ export default function Home() {
       </section>
 
       {/* ================= FULLSCREEN ANIMATED SYLLABUS ACCORDION DOSSIER ================= */}
-      {activeInspectingCourse && (
-        <div className="fixed inset-0 z-50 bg-[#fafbfc] text-[#0d2238] overflow-y-auto animate-in fade-in slide-in-from-bottom-8 duration-300 ease-out flex flex-col font-sans">
-          {/* Top Sticky Command Bar */}
-          <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 px-6 sm:px-12 py-3.5 flex items-center justify-between shadow-sm">
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => setInspectingCourseId(null)}
-                className="flex items-center gap-2 text-xs font-semibold text-slate-700 hover:text-emerald-700 transition-colors p-1.5 rounded-lg hover:bg-slate-100 cursor-pointer"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span>Back to All Courses</span>
-              </button>
-              <span className="text-slate-300">|</span>
-              <div className="flex items-center gap-2">
-                <span className="px-2.5 py-0.5 bg-emerald-600 text-white font-bold text-xs rounded-md">
-                  {activeInspectingCourse.code}
-                </span>
-                <span className="text-xs font-bold text-slate-900 hidden sm:inline">
-                  {activeInspectingCourse.title}
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => handleDownloadSyllabus(activeInspectingCourse.code)}
-                className="hidden sm:flex items-center gap-2 px-3.5 py-2 bg-white border border-slate-300 hover:border-emerald-600 text-slate-800 hover:text-emerald-800 text-xs font-semibold rounded-xl transition-all shadow-sm cursor-pointer"
-              >
-                <Download className="w-4 h-4 text-emerald-600" />
-                <span>Download Syllabus (PDF)</span>
-              </button>
-
-              <a
-                href="#admissions"
-                onClick={(e) => {
-                  setSelectedDiscipline(activeInspectingCourse.id);
-                  setInspectingCourseId(null);
-                  scrollToSection(e, "admissions");
-                }}
-                className="px-4 py-2 bg-[#0c2340] hover:bg-emerald-600 text-white text-xs font-bold rounded-xl transition-all shadow-md active:translate-y-0.5 cursor-pointer flex items-center gap-1.5"
-              >
-                <span>Enroll in Discipline</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </a>
-
-              <button
-                onClick={() => setInspectingCourseId(null)}
-                className="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-colors cursor-pointer"
-                aria-label="Close syllabus view"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-          </header>
-
-          {/* Full-width Hero Banner with Normal Font */}
-          <div className="bg-gradient-to-r from-[#071626] to-[#0c2340] text-white py-12 px-6 sm:px-12 border-b border-white/10">
-            <div className="max-w-5xl mx-auto space-y-4">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="px-3 py-1 bg-emerald-500 text-slate-950 font-bold text-xs rounded-md">
-                  {activeInspectingCourse.code}
-                </span>
-                <span className="px-3 py-1 bg-white/10 text-emerald-300 text-xs font-semibold tracking-wide uppercase rounded-md border border-white/10">
-                  {activeInspectingCourse.category}
-                </span>
-                <span className="px-3 py-1 bg-white/10 text-slate-200 text-xs rounded-md border border-white/10">
-                  {activeInspectingCourse.levelBadge}
-                </span>
-                <div className="flex items-center gap-1.5 px-3 py-1 bg-black/40 rounded-md text-amber-300 text-xs font-bold border border-white/10 ml-auto">
-                  <Star className="w-3.5 h-3.5 fill-amber-300" />
-                  <span>{activeInspectingCourse.rating}</span>
-                  <span className="text-slate-300 font-normal">({activeInspectingCourse.enrolledCount})</span>
-                </div>
-              </div>
-
-              <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
-                {activeInspectingCourse.title}
-              </h1>
-
-              <p className="text-slate-200 text-sm sm:text-base max-w-3xl leading-relaxed">
-                {activeInspectingCourse.description}
-              </p>
-
-              {/* Specs Ribbon */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-white/15 text-xs">
-                <div>
-                  <span className="text-slate-400 block text-xs">Academic Credits</span>
-                  <span className="font-bold text-white text-sm">{activeInspectingCourse.units}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400 block text-xs">Term Duration</span>
-                  <span className="font-bold text-white text-sm">{activeInspectingCourse.length}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400 block text-xs">Hours & Labs</span>
-                  <span className="font-bold text-white text-sm">{activeInspectingCourse.hours}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400 block text-xs">Curriculum Standard</span>
-                  <span className="font-bold text-emerald-300 text-sm">{activeInspectingCourse.accreditation}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Fullscreen Accordion Showcase */}
-          <main className="flex-1 max-w-5xl mx-auto w-full px-6 sm:px-12 py-10 space-y-6">
-            {/* Download Toast Notification */}
-            {downloadSuccess && (
-              <div className="p-4 bg-emerald-50 border border-emerald-300 rounded-2xl text-emerald-950 flex items-center justify-between gap-3 shadow-sm animate-in fade-in">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0">
-                    <Check className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="font-bold block text-sm">Download Started</span>
-                    <span className="text-xs text-emerald-800">
-                      Official syllabus specification for {downloadSuccess} has been downloaded.
-                    </span>
-                  </div>
-                </div>
-                <button
-                  onClick={() => setDownloadSuccess(null)}
-                  className="text-emerald-700 hover:text-emerald-900 text-xs font-semibold cursor-pointer"
-                >
-                  Dismiss
-                </button>
-              </div>
-            )}
-
-            {/* Accordion Controls Bar */}
-            <div className="flex items-center justify-between pb-2 border-b border-slate-200">
-              <div>
-                <h2 className="text-lg font-bold text-slate-900">
-                  Comprehensive Syllabus Architecture
-                </h2>
-                <p className="text-xs text-slate-500">
-                  Click any section below to expand or collapse modular syllabus themes, laboratory protocols, and faculty recitations.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2 shrink-0">
-                <button
-                  onClick={expandAllAccordions}
-                  className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition-colors cursor-pointer"
-                >
-                  Expand All
-                </button>
-                <button
-                  onClick={collapseAllAccordions}
-                  className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition-colors cursor-pointer"
-                >
-                  Collapse All
-                </button>
-              </div>
-            </div>
-
-            {/* ACCORDION 1: Overview, Prerequisites & Diagnostic Outcomes */}
-            <div className="border border-slate-200 rounded-2xl bg-white shadow-sm overflow-hidden transition-all duration-200">
-              <button
-                onClick={() => toggleAccordion("overview")}
-                className="w-full flex items-center justify-between p-5 text-left bg-white hover:bg-slate-50/80 transition-colors cursor-pointer"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
-                    <BookOpen className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-base text-slate-900">
-                      Course Prerequisites, Degree Alignment & Core Competencies
-                    </h3>
-                    <p className="text-xs text-slate-500">
-                      Prerequisites, target exam benchmarks, and required prior coursework.
-                    </p>
-                  </div>
-                </div>
-                <ChevronDown
-                  className={`w-5 h-5 text-slate-400 transition-transform duration-200 ${
-                    openAccordionIds.overview ? "rotate-180 text-emerald-600" : ""
-                  }`}
-                />
-              </button>
-
-              {openAccordionIds.overview && (
-                <div className="px-6 pb-6 pt-2 border-t border-slate-100 space-y-5 animate-in fade-in duration-200">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
-                      <span className="text-xs font-bold text-emerald-800 uppercase tracking-wide block">
-                        Required Academic Prerequisites
-                      </span>
-                      <p className="text-sm font-medium text-slate-800">
-                        {activeInspectingCourse.prerequisites}
-                      </p>
-                    </div>
-
-                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
-                      <span className="text-xs font-bold text-emerald-800 uppercase tracking-wide block">
-                        Official Exam Standard & Syllabi Benchmark
-                      </span>
-                      <p className="text-sm font-medium text-slate-800">
-                        {activeInspectingCourse.examAlignment}
-                      </p>
-                      <p className="text-xs text-slate-500">
-                        {activeInspectingCourse.accreditation}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="p-5 bg-emerald-50/50 border border-emerald-200 rounded-xl space-y-3">
-                    <span className="text-xs font-bold text-emerald-900 uppercase tracking-wide block">
-                      Target Graduation Competencies & Mastery Outcomes
-                    </span>
-                    <div className="space-y-2">
-                      {activeInspectingCourse.learningOutcomes.map((outcome: string, idx: number) => (
-                        <div key={idx} className="flex items-start gap-2.5 text-sm text-slate-800">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
-                          <span>{outcome}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* ACCORDIONS 2–5: The 4 Chronological Academic Modules */}
-            {activeInspectingCourse.modules.map((m: any, mIdx: number) => {
-              const accKey = `module_${mIdx}`;
-              const isOpen = openAccordionIds[accKey] ?? false;
-
-              return (
-                <div
-                  key={m.num}
-                  className="border border-slate-200 rounded-2xl bg-white shadow-sm overflow-hidden transition-all duration-200"
-                >
-                  <button
-                    onClick={() => toggleAccordion(accKey)}
-                    className="w-full flex items-center justify-between p-5 text-left bg-white hover:bg-slate-50/80 transition-colors cursor-pointer"
-                  >
-                    <div className="flex items-center gap-3.5 min-w-0">
-                      <div className="w-9 h-9 rounded-xl bg-[#0c2340] text-white flex items-center justify-center font-bold text-xs shrink-0">
-                        {m.num}
-                      </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
-                            Unit {m.num} • {m.weeks}
-                          </span>
-                          <span className="text-xs font-medium text-slate-400">• Lab Protocol Included</span>
-                        </div>
-                        <h3 className="font-bold text-base text-slate-900 leading-snug truncate">
-                          {m.title}
-                        </h3>
-                      </div>
-                    </div>
-
-                    <ChevronDown
-                      className={`w-5 h-5 text-slate-400 transition-transform duration-200 shrink-0 ml-4 ${
-                        isOpen ? "rotate-180 text-emerald-600" : ""
-                      }`}
-                    />
-                  </button>
-
-                  {isOpen && (
-                    <div className="px-6 pb-6 pt-2 border-t border-slate-100 space-y-4 animate-in fade-in duration-200">
-                      <div>
-                        <span className="text-xs font-bold uppercase tracking-wide text-slate-500 block mb-2">
-                          Weekly Lecture Themes & Recitations:
-                        </span>
-                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-700">
-                          {m.topics.map((t: string, idx: number) => (
-                            <li key={idx} className="flex items-start gap-2.5 p-2.5 rounded-lg bg-slate-50 border border-slate-100">
-                              <span className="w-2 h-2 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
-                              <span className="leading-snug">{t}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div className="p-4 bg-emerald-50/70 border border-emerald-200 rounded-xl space-y-1">
-                        <div className="flex items-center gap-2 text-emerald-900 font-bold text-xs uppercase tracking-wide">
-                          <Layers className="w-4 h-4 text-emerald-700" />
-                          <span>Dedicated Laboratory Experiment Protocol</span>
-                        </div>
-                        <p className="text-sm font-semibold text-slate-900">
-                          {m.lab}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-
-            {/* ACCORDION 6: Faculty Lead, Mentorship & Recitation Schedule */}
-            <div className="border border-slate-200 rounded-2xl bg-white shadow-sm overflow-hidden transition-all duration-200">
-              <button
-                onClick={() => toggleAccordion("faculty")}
-                className="w-full flex items-center justify-between p-5 text-left bg-white hover:bg-slate-50/80 transition-colors cursor-pointer"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center shrink-0">
-                    <GraduationCap className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-base text-slate-900">
-                      Course Director, Recitations & Office Hours
-                    </h3>
-                    <p className="text-xs text-slate-500">
-                      Instructor credentials, university department, and weekly live recitation times.
-                    </p>
-                  </div>
-                </div>
-                <ChevronDown
-                  className={`w-5 h-5 text-slate-400 transition-transform duration-200 ${
-                    openAccordionIds.faculty ? "rotate-180 text-emerald-600" : ""
-                  }`}
-                />
-              </button>
-
-              {openAccordionIds.faculty && (
-                <div className="px-6 pb-6 pt-2 border-t border-slate-100 space-y-4 animate-in fade-in duration-200">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 bg-slate-50 border border-slate-200 rounded-2xl">
-                    <div className="flex items-center gap-4">
-                      <img
-                        src={activeInspectingCourse.faculty.avatar}
-                        alt={activeInspectingCourse.faculty.name}
-                        className="w-14 h-14 rounded-full object-cover border-2 border-emerald-400 shadow-sm shrink-0"
-                      />
-                      <div>
-                        <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 block">
-                          Course Director
-                        </span>
-                        <h4 className="text-base font-bold text-slate-900">
-                          {activeInspectingCourse.faculty.name}
-                        </h4>
-                        <p className="text-xs text-slate-600">
-                          {activeInspectingCourse.faculty.title} • {activeInspectingCourse.faculty.institution}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="p-3 bg-white border border-slate-200 rounded-xl space-y-1 sm:text-right shrink-0">
-                      <span className="text-xs uppercase font-bold text-slate-400 block">
-                        Weekly Office Hours
-                      </span>
-                      <span className="text-xs font-bold text-slate-900 block">
-                        {activeInspectingCourse.faculty.officeHours}
-                      </span>
-                      <span className="text-[11px] text-emerald-700 block">Live Video & Q&A</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Bottom Actions Row */}
-            <div className="p-6 bg-slate-100 rounded-2xl border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="space-y-0.5 text-center sm:text-left">
-                <h4 className="font-bold text-sm text-slate-900">Ready to begin this masterclass?</h4>
-                <p className="text-xs text-slate-500">
-                  Enroll with your university institutional email for complete syllabus and recitation access.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-3 w-full sm:w-auto">
-                <button
-                  onClick={() => handleDownloadSyllabus(activeInspectingCourse.code)}
-                  className="flex-1 sm:flex-none px-5 py-2.5 bg-white border border-slate-300 hover:border-emerald-600 text-slate-800 hover:text-emerald-800 text-xs font-semibold rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <Download className="w-4 h-4 text-emerald-600" />
-                  <span>Download Syllabus (PDF)</span>
-                </button>
-
-                <a
-                  href="#admissions"
-                  onClick={(e) => {
-                    setSelectedDiscipline(activeInspectingCourse.id);
-                    setInspectingCourseId(null);
-                    scrollToSection(e, "admissions");
-                  }}
-                  className="flex-1 sm:flex-none px-6 py-2.5 bg-[#0c2340] hover:bg-emerald-600 text-white text-xs font-bold rounded-xl transition-all shadow-md active:translate-y-0.5 cursor-pointer flex items-center justify-center gap-2"
-                >
-                  <span>Enroll in Discipline</span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
-          </main>
-        </div>
-      )}
-
+      <SyllabusDossierModal
+        course={activeInspectingCourse}
+        onClose={() => setInspectingCourseId(null)}
+        onEnroll={(c) => {
+          setSelectedDiscipline(c.id);
+          setInspectingCourseId(null);
+          const el = document.getElementById("admissions");
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }}
+      />
       {/* ================= STUDENTS STUDYING & METHODOLOGY ================= */}
       <section id="pedagogy" className="relative py-24 bg-[#071626] text-white overflow-hidden scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
