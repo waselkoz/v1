@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Undergraduate STEM & Pre-Med Masterclasses",
-  description: "University-level masterclasses in Medicine, Computer Science, Biology, Mathematics, and Physics.",
+  title: "E-Learning Platform",
+  description: "Online masterclasses and self-paced courses in Medicine, Computer Science, Biology, Mathematics, and Physics.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

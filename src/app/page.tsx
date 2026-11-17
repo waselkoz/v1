@@ -889,7 +889,7 @@ export default function Home() {
             </h1>
 
             <p className="mt-5 sm:mt-6 text-sm sm:text-base md:text-lg text-slate-100/95 font-normal max-w-3xl mx-auto leading-relaxed drop-shadow-[0_2px_14px_rgba(0,0,0,0.85)]">
-              From clinical anatomy and algorithmic systems to multivariable calculus and quantum physics. Master foundational STEM disciplines through self-paced interactive modules, browser-based labs, and verifiable certificates.
+              From clinical anatomy and algorithmic systems to multivariable calculus and quantum physics. Master foundational disciplines through self-paced interactive modules, browser-based labs, and verifiable certificates on our comprehensive e-learning platform.
             </p>
           </div>
         </div>
@@ -971,7 +971,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-gray-200 gap-6">
             <div>
               <span className="text-xs uppercase tracking-widest text-emerald-700 font-bold block mb-2">
-                Online STEM & Pre-Med Courses
+                E-Learning Platform Courses
               </span>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#071626]">
                 Curriculum & Course Directory
@@ -1721,7 +1721,7 @@ export default function Home() {
                 Academic Masterclasses
               </span>
               <p className="text-gray-400 text-xs leading-relaxed font-sans">
-                Accredited undergraduate STEM and pre-medical masterclasses mapped to university syllabi worldwide.
+                Accredited e-learning platform and masterclasses with self-paced courses and verified completion certificates.
               </p>
             </div>
 
@@ -1773,7 +1773,7 @@ export default function Home() {
               <span>·</span>
               <span>Tailwind CSS</span>
               <span>·</span>
-              <span>Accredited STEM Education</span>
+              <span>Accredited E-Learning Platform</span>
             </p>
           </div>
         </div>

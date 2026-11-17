@@ -527,7 +527,7 @@ export default function CurriculumPage() {
             Curriculum & Course Syllabi
           </h1>
           <p className="text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
-            Search across 5 comprehensive STEM tracks with self-paced video modules, browser-based labs, and verifiable certificates.
+            Search across 5 comprehensive tracks on our e-learning platform with self-paced video modules, browser-based labs, and verifiable certificates.
           </p>
         </div>
       </section>
